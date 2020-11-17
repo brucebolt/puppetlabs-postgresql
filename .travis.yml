@@ -82,7 +82,23 @@ jobs:
       script: ["travis_wait 45 bundle exec rake litmus:acceptance:parallel"]
       services: docker
       stage: acceptance
+<<<<<<< HEAD
     - before_script:
+=======
+    -
+      before_script:
+      - "bundle exec rake 'litmus:provision_list[travis_el8]'"
+      - "bundle exec rake 'litmus:install_agent[puppet5]'"
+      - "bundle exec rake litmus:install_module"
+      bundler_args:
+      env: PLATFORMS=travis_el8_puppet5
+      rvm: 2.5.7
+      script: ["travis_wait 45 bundle exec rake litmus:acceptance:parallel"]
+      services: docker
+      stage: acceptance
+    -
+      before_script:
+>>>>>>> c228e75... Update pdk-templates for gitpod and codespaces support
       - "bundle exec rake 'litmus:provision_list[travis_deb]'"
       - "bundle exec rake 'litmus:install_agent[puppet6]'"
       - "bundle exec rake litmus:install_module"
@@ -111,6 +127,17 @@ jobs:
       env:
         PLATFORMS: travis_el8_puppet6
         BUNDLE_WITH: system_tests
+      rvm: 2.5.7
+      script: ["travis_wait 45 bundle exec rake litmus:acceptance:parallel"]
+      services: docker
+      stage: acceptance
+    -
+      before_script:
+      - "bundle exec rake 'litmus:provision_list[travis_el8]'"
+      - "bundle exec rake 'litmus:install_agent[puppet6]'"
+      - "bundle exec rake litmus:install_module"
+      bundler_args:
+      env: PLATFORMS=travis_el8_puppet6
       rvm: 2.5.7
       script: ["travis_wait 45 bundle exec rake litmus:acceptance:parallel"]
       services: docker
