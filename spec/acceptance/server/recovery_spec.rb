@@ -1,6 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe 'postgresql::server::recovery', skip: 'IAC-1286' do
+describe 'postgresql::server::recovery' do
   describe 'should manage recovery' do
     before(:all) do
       pre_run
@@ -28,6 +28,11 @@ describe 'postgresql::server::recovery', skip: 'IAC-1286' do
         restore_command          => 'restore_command',
         recovery_target_timeline => 'recovery_target_timeline',
       }
+
+      exec { 'systemd-start-postgresql':
+        command => 'systemctl start postgresql.service',
+        path    => ['/bin'],
+      }
     MANIFEST
     it 'adds conf file' do
       idempotent_apply(pp)
@@ -49,6 +54,11 @@ describe 'postgresql::server::recovery', skip: 'IAC-1286' do
         }
 
         class { 'postgresql::server': }
+
+        exec { 'systemd-start-postgresql':
+          command => 'systemctl start postgresql.service',
+          path    => ['/bin'],
+        }
       EOS
 
       idempotent_apply(pp)
