@@ -82,9 +82,6 @@ jobs:
       script: ["travis_wait 45 bundle exec rake litmus:acceptance:parallel"]
       services: docker
       stage: acceptance
-<<<<<<< HEAD
-    - before_script:
-=======
     -
       before_script:
       - "bundle exec rake 'litmus:provision_list[travis_el8]'"
@@ -98,7 +95,6 @@ jobs:
       stage: acceptance
     -
       before_script:
->>>>>>> c228e75... Update pdk-templates for gitpod and codespaces support
       - "bundle exec rake 'litmus:provision_list[travis_deb]'"
       - "bundle exec rake 'litmus:install_agent[puppet6]'"
       - "bundle exec rake litmus:install_module"
